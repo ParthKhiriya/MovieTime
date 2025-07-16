@@ -2,13 +2,10 @@ import React from 'react'
 
 const MovieCard = ({ movie }) => {
 
-  const {
-    titleText: { text: title },
-    ratingsSummary: { aggregateRating: vote_avg } = {},
-    primaryImage: { url: poster_path } = {},
-    releaseDate: { year: release_date } = {},
-    originalLanguage = 'english'
-  } = movie;
+  const title = movie?.titleText?.text || 'Untitled';
+  const vote_avg = movie?.ratingsSummary?.aggregateRating ?? 'N/A';
+  const poster_path = movie?.primaryImage?.url || '/no-movie.png';
+  const release_date = movie?.releaseDate?.year || 'N/A';
 
   return (
     <div className='movie-card'>
@@ -17,8 +14,14 @@ const MovieCard = ({ movie }) => {
             <h3>{title}</h3>
             <div className='content'>
                 <div className='rating'>
-                    <img src="star.svg" alt="Star Icon" />
-                    <p>{vote_avg ? vote_avg : 'N/A'}</p>
+                    {/* <img src="star.svg" alt="Star Icon" /> */}
+                    {/* <p>{vote_avg ? vote_avg : 'N/A'}</p> */}
+                    {vote_avg !== 'N/A' && (
+                      <div className='rating'>
+                      <img src="star.svg" alt="Star Icon" />
+                      <p>{vote_avg}</p>
+                    </div>
+                    )}
                 </div>
                 {/* <span>•</span>
                 <p className='lang'>{originalLanguage}</p> */}
